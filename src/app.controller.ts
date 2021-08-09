@@ -1,13 +1,24 @@
 import { Controller, Get } from '@nestjs/common';
+import {
+  HealthCheck,
+  HealthCheckService,
+  HttpHealthIndicator,
+} from '@nestjs/terminus';
 
-import { AppService } from './app.service';
+import { hyundaiShowroomUrl } from './constants';
 
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) {}
+  constructor(
+    private readonly health: HealthCheckService,
+    private readonly http: HttpHealthIndicator,
+  ) {}
 
   @Get()
-  getHello(): string {
-    return this.appService.getHello();
+  @HealthCheck()
+  check() {
+    return this.health.check([
+      () => this.http.pingCheck('hyundai-showroom', hyundaiShowroomUrl),
+    ]);
   }
 }

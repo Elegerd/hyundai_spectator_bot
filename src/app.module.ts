@@ -1,10 +1,20 @@
 import { AppController } from './app.controller';
-import { AppService } from './app.service';
+import { BotModule } from './bot/bot.module';
+import { ConfigModule } from './config/config.module';
 import { Module } from '@nestjs/common';
+import { PuppeteerModule } from './puppeteer/puppeteer.module';
+import { ScheduleModule } from '@nestjs/schedule';
+import { TerminusModule } from '@nestjs/terminus';
 
 @Module({
-  imports: [],
+  imports: [
+    TerminusModule,
+    PuppeteerModule,
+    BotModule,
+    ScheduleModule.forRoot(),
+    { module: ConfigModule, global: true },
+  ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [],
 })
 export class AppModule {}

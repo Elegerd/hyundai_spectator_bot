@@ -8,7 +8,6 @@ import { hyundaiShowroomUrl } from 'src/constants';
 import { CarInfo } from 'src/types/common';
 import formatCar from 'src/utils/formatCar';
 import { Cron, CronExpression } from '@nestjs/schedule';
-import sleep from 'src/utils/sleep';
 
 @Injectable()
 export class PuppeteerService {
@@ -32,7 +31,7 @@ export class PuppeteerService {
   async checkShowroomPage() {
     try {
       console.log(`[INFO]: Check showroom - ${Date.now()}`)
-      
+
       if (this.bot.page.url() !== hyundaiShowroomUrl) {
         await this.bot.goto(hyundaiShowroomUrl, { waitUntil: 'load', timeout: 0 });
       } else {

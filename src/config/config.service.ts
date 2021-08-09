@@ -42,6 +42,7 @@ export class ConfigService {
       NODE_ENV: Joi.string()
         .valid('development', 'production', 'test', 'staging')
         .default('development'),
+      PORT: Joi.number().default(3000),
       TELEGRAM_BOT_TOKEN: Joi.string().required(),
     };
 

@@ -15,7 +15,8 @@
     "lint:ts": "eslint ./src --ext .ts",
     "lint:ts:fix": "eslint --fix ./src --ext ts",
     "prettier": "prettier \"src/**/*.ts\"",
-    "prettier:fix": "prettier --write \"src/**/*.ts\""
+    "prettier:fix": "prettier --write \"src/**/*.ts\"",
+    "heroku-postbuild": "npm install --only=dev --no-shrinkwrap && npm run build"
   },
   "dependencies": {
     "@hapi/joi": "^17.1.1",

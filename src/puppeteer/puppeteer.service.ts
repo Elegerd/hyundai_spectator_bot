@@ -17,7 +17,7 @@ export class PuppeteerService {
     @InjectBot() private readonly telegramBot: Telegraf,
   ) {
     this.bot = new PuppeteerBot2a({
-      preferNonHeadless: true,
+      preferNonHeadless: false,
     });
 
     this.init();

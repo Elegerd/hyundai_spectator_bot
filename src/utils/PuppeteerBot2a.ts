@@ -452,9 +452,6 @@ class PuppeteerBot2a {
     this.urlCacheUseProxy = urlCacheUseProxy;
     this.trustChromeNativeRequest = trustChromeNativeRequest;
 
-    this.preferNonHeadless = preferNonHeadless;
-    this.disguiseFlags = disguiseFlags;
-
     this.revision = revision;
     this.executablePath = executablePath;
     this.browserless = browserless;

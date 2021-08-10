@@ -68,6 +68,12 @@ export class PuppeteerService {
 
       if (!!elements.length) {
         const messages = await Promise.all(elements.map(async (el): Promise<string> => {
+          const classNames = await el.getProperty('className');
+
+          const parseClassNames = classNames?._remoteObject.value;
+
+          const id = parseClassNames && typeof parseClassNames === 'string' ? parseClassNames.replace(/[^\d]/g, '') : null;
+
           const infoNode = await el.$('.car-item__left');
           const infoNodeChildren = await infoNode.$$(':scope > *');
 
@@ -82,7 +88,13 @@ export class PuppeteerService {
             '',
           ) || null);
 
-          const equipmentPackage = await infoNodeChildren?.[0].$eval('.car-item__package > *:last-child', (el) => el.textContent);
+          const equipmentPackageNode = await infoNodeChildren?.[0].$('.car-item__package');
+
+          let equipmentPackage = null;
+
+          if (equipmentPackageNode) {
+            equipmentPackage = await equipmentPackageNode.$eval('*:last-child', (el) => el.textContent);
+          }
 
           const engine =
             await infoNodeChildren?.[1].$eval('*:nth-of-type(2) > *:nth-of-type(2)', (el) => el.textContent);
@@ -107,7 +119,7 @@ export class PuppeteerService {
             carColor,
             interiorColor,
             count,
-            url: `${hyundaiShowroomUrl}`,
+            url: id ? `${hyundaiShowroomUrl}model/${id}` : hyundaiShowroomUrl,
           }
           return formatCar(carInfo);
         }));
